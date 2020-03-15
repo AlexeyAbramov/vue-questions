@@ -1,28 +1,57 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <QuestionItem :title="currentQ.title"
+                  :variants="currentQ.variants"
+                  :type="currentQ.type"
+                  
+    />
+    <NextButton/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import QuestionItem from '@/components/QuestionItem';
+import NextButton from '@/components/NextButton';
 
 export default {
-  name: 'App',
+  data() {
+    return {
+      current:1,
+      questions: [
+        {
+          id: 0,
+          title: 'Какой тег задает ссылку?',
+          variants: ['a', 'div', 'span', 'img'],
+          type: 'radio'
+        },
+        {
+          id: 1,
+          title: 'Какой tag задает ссылку?',
+          variants: ['a', 'div', 'span', 'img'],
+          type: 'checkbox'
+        }
+      ]
+    };
+  },
+  computed: {
+    currentQ(){
+      return this.questions[this.current]
+    }
+  },
+  created() {
+    for (let i = 0; i < this.questions.length; i++){
+        this.$set(this.questions[i],'addSomePropertiesToAllObjects', 55)
+    }
+  },
   components: {
-    HelloWorld
-  }
-}
+    QuestionItem,
+    NextButton
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+ul {
+  list-style: none;
 }
 </style>
