@@ -1,5 +1,5 @@
 module.exports = {
-    publicPath: "/<REPO>/"
+    publicPath: "/vue-questions/"
       ? '/vue-questions/'
       : '/'
   }
