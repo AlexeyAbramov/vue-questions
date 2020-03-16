@@ -1,22 +1,26 @@
 <template>
   <div id="app">
-    <QuestionItem :title="currentQ.title"
-                  :variants="currentQ.variants"
-                  :type="currentQ.type"
-                  
+    <QuestionItem
+      :title="currentQ.title"
+      :variants="currentQ.variants"
+      :type="currentQ.type"
+      :count="current"
+      @nextQuestion="next($event)"
+      @printAnswers="print($event)"
+      :final="final"
+      :totalQuestions="questions.length"
     />
-    <NextButton/>
   </div>
 </template>
 
 <script>
 import QuestionItem from '@/components/QuestionItem';
-import NextButton from '@/components/NextButton';
 
 export default {
   data() {
     return {
-      current:1,
+      current: 0,
+      final:[],
       questions: [
         {
           id: 0,
@@ -33,20 +37,28 @@ export default {
       ]
     };
   },
-  computed: {
-    currentQ(){
-      return this.questions[this.current]
+  methods: {
+    next(e) {
+       this.$set(this.final, this.current, e);
+       this.current++;
+    },
+    print(e){
+       this.$set(this.final, this.current, e);
     }
   },
+  computed: {
+    currentQ() {
+      return this.questions[this.current];
+    },
+  },
   created() {
-    for (let i = 0; i < this.questions.length; i++){
-        this.$set(this.questions[i],'addSomePropertiesToAllObjects', 55)
+    for (let i = 0; i < this.questions.length; i++) {
+      this.$set(this.questions[i], 'addSomePropertiesToAllObjects', 55);
     }
   },
   components: {
-    QuestionItem,
-    NextButton
-  },
+    QuestionItem
+  }
 };
 </script>
 
